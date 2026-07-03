@@ -1,0 +1,7 @@
+img {
+    border:12px solid black;
+    border-radius:50%;
+}
+body.back {
+    background-color:SkyBlue;
+}

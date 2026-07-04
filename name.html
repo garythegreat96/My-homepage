@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+            background-color: lightblue;
+        }
+        .button {
+            background-color: blue;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        a {
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+    <head>
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
+        <title>Name Form</title>
+    </head>
+    <body>
+        <form onsubmit="saveName(); return false;">
+                <label for="name">Name:</label>
+                <input type="text" name="name" placeholder="Enter your name">
+                <input type="submit" value="Submit" class = "button">
+        </form>
+        <button class = "button"><a href="index.html">Greet Me(Go back)</a></button>
+    </body>
+    <script>
+        function saveName() {
+            var name = $("input[name='name']").val();
+            let greeting = "Hello, " + name + "!";
+            let d = document.createElement("h1");
+            d.innerHTML = greeting;
+            document.body.prepend(d);
+        }
+    </script>
+</html>

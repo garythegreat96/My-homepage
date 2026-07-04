@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
+    </head>
+    <style>
+        div div {
+            background-color:Blue;
+            height:14px;
+            width:125px;
+            margin-top:15px;
+            position:relative
+        }
+        a {
+            color: black;
+            text-decoration: none;
+        }
+        .button {
+            background-color: blue;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        
+    </style>
+    <body>
+        <div id = container>
+    	    <div id ="div1"></div>
+    	    <div id ="div2"></div>
+    	    <div id ="div3"></div>
+    	    <div id ="div4"></div>
+    	<script>
+            $("#container").on("mouseover", function() {
+                $("#div2").animate({
+                    "border-radius":"50%",
+                    "width":"20px",
+                    "height":"120px",
+                    "bottom":"25px"
+                   
+                }, 1000);
+                $("#div2").css("background-color","red")
+                $("#div1").animate({
+                    "left":"10px",
+                    "border-radius":"50%",
+                    "width":"120px",
+                    "height":"20px",
+                    
+                }, 1000);
+                $("#div1").css("background-color","orange")
+                $("#div3").animate({
+                    "left":"120px",
+                    "border-radius":"50%",
+                    "width":"20px",
+                    "height":"120px",
+                    "bottom":"160px",
+                }, 1000);
+                $("#div3").css({"background-color":"green"});
+               
+               
+                $("#div4").animate({
+                    "left":"10px",
+                    "border-radius":"50%",
+                    "width":"120x",
+                    "height":"20px",
+                    "bottom":"185px"
+                }, 1000);
+                $("#div4").css({"background-color":"purple"});
+            });
+    	</script>
+        <button class = "button"><a href="index.html">Go Back</a></button>
+    </body>
+</html>

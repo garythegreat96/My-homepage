@@ -6,9 +6,9 @@
     </head>
     <body class="back">
         <h1>Welcome to Gary's Homepage!</h1>
-        <img src="https://codehs.com/uploads/ceb890f76690ad1d2151bf97534f6c11" alt="cool picture of my codehs pfp">
-        <p>
-            Hello, My name is Gary Xiao, and I am currently a sophmore at Bellaire High School. Here are some of the things that I like to do:
+        <span><img src="https://codehs.com/uploads/ceb890f76690ad1d2151bf97534f6c11" alt="cool picture of my codehs pfp"></span>
+        <p class="paragraph">
+            Hello, My name is Gary Xiao, and I am currently an upcoming sophomore at Bellaire High School. Here are some of the things that I like to do:
         </p>
         <ul>
             <li>Swim</li>
@@ -16,7 +16,18 @@
             <li>Play video games</li>
             <li>Read</li>
             <li>Watch Youtube videos</li>
-            <a href="pro.html">Embedding a video</a>
         </ul>
+        <h2 id="cool-stuff">Cool Stuff</h2>
+        <button class="button"><a href="animation.html">Cool Little Animation</a></button>
+        <button id="video-button" class="button"><a href="pro.html">Embedding a video</a></button>
+        <button class="button"><a href="name.html">Enter Your Name</a></button>
+        <script>
+            $("#cool-stuff").on("mouseover", function() {
+                $("#cool-stuff").animate({
+                    "font-size": "50px"
+                }, 1000);
+                $("#cool-stuff").css("color", "red");
+            });
+        </script>
     </body>
 </html>

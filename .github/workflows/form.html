@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My JavaScript Game</title>
+    <style>
+        /* Centers the game on the screen and gives it a background color */
+        body {
+            margin: 0;
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        canvas {
+            background-color: #000; /* The game screen background */
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. The Canvas element where your game renders -->
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <!-- 2. Link your external JavaScript game file -->
+    <!-- The 'defer' attribute ensures the script runs AFTER the HTML is loaded -->
+    <script src="game.js" defer></script>
+
+</body>
+</html>

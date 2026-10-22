@@ -1,10 +1,10 @@
-# My-homepage
-homepage
-My homepage includes an indroduction to myself and also a list of things I like to do.
-I've also added a link to another assignment I did when I first started learning coding. It includes an embedded video.
-The newest feature is that I have added a local storage input in which the user can enter their name.
-7/4/26
-I've added more things:
- - a cool animation page
- - styled all of the buttons
- - organized all of the features in this "cool stuff" area
+# Gary Xiao — Personal Website
+
+A small static personal site hosted with GitHub Pages.
+
+- `index.html` is the personal homepage.
+- `my-project.html` is an interactive wellness dashboard demo based on the project screens.
+- `site.css` and `project.js` provide the shared design and demo interactions.
+- The project demo stores activity entries and routine checkmarks in the current browser.
+
+The custom domain is configured in `CNAME` as `hstasis.garyxiao.org`. GitHub Pages will serve the site there once the matching DNS record is configured.

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8f5">
+  <meta name="description" content="A personal wellness routine dashboard by Gary Xiao.">
+  <title>My Project — Gary Xiao</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body class="app-page">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="my-project.html"><span class="brand-icon" aria-hidden="true">✳</span><span>Homeostasis</span></a>
+      <nav class="nav-list" aria-label="Project navigation">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">⌂</span>Dashboard</button>
+        <button class="nav-item" data-view="log"><span class="nav-icon">＋</span>Log Activity</button>
+        <button class="nav-item" data-view="routine"><span class="nav-icon">▦</span>My Routine</button>
+        <button class="nav-item" data-view="insights"><span class="nav-icon">⌁</span>Insights</button>
+        <button class="nav-item" data-view="challenges"><span class="nav-icon">◇</span>Challenges</button>
+        <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span>Settings</button>
+      </nav>
+      <div class="daily-tip">
+        <strong>Daily Tip</strong>
+        <p>Morning sunlight within 30 minutes of waking can help reset your body clock.</p>
+      </div>
+    </aside>
+    <main class="app-main">
+      <div class="content">
+        <a class="back-link" href="index.html">← Back to Gary’s homepage</a>
+        <div id="app-content"></div>
+      </div>
+    </main>
+  </div>
+  <script src="project.js"></script>
+</body>
+</html>

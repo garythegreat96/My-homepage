@@ -46,6 +46,15 @@ function renderEntries() {
     document.getElementById("profile-name").value = state.name;
   }
 }
+function webSearchPanel(idea) {
+  const query = encodeURIComponent(idea);
+  const similarQuery = encodeURIComponent(idea + " similar ideas");
+  return '<section class="web-search-panel"><div><strong>Search the public web</strong><span>Choose a search engine. Your idea text will be sent to that provider.</span></div><nav class="web-search-links" aria-label="Search the web">' +
+    '<a href="https://www.google.com/search?q=' + query + '" target="_blank" rel="noopener noreferrer">Google ↗</a>' +
+    '<a href="https://www.bing.com/search?q=' + similarQuery + '" target="_blank" rel="noopener noreferrer">Bing ↗</a>' +
+    '<a href="https://duckduckgo.com/?q=' + query + '" target="_blank" rel="noopener noreferrer">DuckDuckGo ↗</a>' +
+    '</nav></section>';
+}
 function showMatches(idea) {
   const matches = exampleIdeas.map(item => ({
     title: item.title,
@@ -59,7 +68,7 @@ function showMatches(idea) {
   } else {
     body = '<div class="no-match">No close wording match in the small example collection. This does not mean nobody has thought of the idea.</div>';
   }
-  results.innerHTML = '<p class="eyebrow">Possible connections</p><h2>Here’s what the prototype found</h2><p class="results-intro">These are wording matches from a few sample entries, not a web search or an originality check.</p>' + body +
+  results.innerHTML = '<p class="eyebrow">Possible connections</p><h2>Here’s what the prototype found</h2><p class="results-intro">These wording matches come from a few examples. Use a web-search link below to check public pages; search engines may miss similar ideas.</p>' + webSearchPanel(idea) + body +
     '<div class="record-row"><p>Save an informal first-posted timestamp to this browser.</p><button class="record-button" id="record-idea" type="button">Record this idea</button></div>';
   results.hidden = false;
   document.getElementById("record-idea").addEventListener("click", recordIdea);

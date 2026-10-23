@@ -173,3 +173,6 @@ button { cursor: pointer; }
   .streak-grid { grid-template-columns: repeat(2, 1fr); }
   .form-row { grid-template-columns: 1fr; }
 }
+
+.routine-row { width: 100%; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.routine-row:hover .routine-name { color: var(--green-dark); }

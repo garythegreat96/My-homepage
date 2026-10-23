@@ -7,9 +7,12 @@
   <meta name="description" content="Gary Xiao's personal website and projects.">
   <title>Gary Xiao — Personal Website</title>
   <script>
-    if (window.location.hostname === "hstasis.garyxiao.org") {
-      window.location.replace("/my-project.html");
-    }
+    const projectHost = {
+      "hstasis.garyxiao.org": "/my-project.html",
+      "oideas.garyxiao.org": "/original-ideas.html"
+    };
+    const projectPath = projectHost[window.location.hostname];
+    if (projectPath) window.location.replace(projectPath);
   </script>
   <link rel="stylesheet" href="site.css">
 </head>
@@ -34,17 +37,28 @@
       <p class="about-copy">Outside of projects, I enjoy swimming, playing cello, and reading.</p>
     </section>
 
-    <section class="project-block" aria-labelledby="project-title">
-      <p class="eyebrow">Selected project</p>
-      <a class="project-card" href="https://hstasis.garyxiao.org/">
-        <span class="project-mark" aria-hidden="true">✳</span>
-        <span class="project-text">
-          <span class="project-kicker">Wellness · Personal project</span>
-          <strong id="project-title">Homeostasis</strong>
-          <span>A simple dashboard for building healthy daily routines.</span>
-        </span>
-        <span class="project-arrow" aria-hidden="true">↗</span>
-      </a>
+    <section class="project-block" aria-labelledby="projects-title">
+      <p class="eyebrow">Projects</p>
+      <div class="project-list">
+        <a class="project-card" href="https://hstasis.garyxiao.org/">
+          <span class="project-mark" aria-hidden="true">✳</span>
+          <span class="project-text">
+            <span class="project-kicker">Wellness · Personal project</span>
+            <strong id="projects-title">Homeostasis</strong>
+            <span>A simple dashboard for building healthy daily routines.</span>
+          </span>
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="project-card" href="https://oideas.garyxiao.org/">
+          <span class="project-mark idea-mark" aria-hidden="true">✳</span>
+          <span class="project-text">
+            <span class="project-kicker">Ideas · In progress</span>
+            <strong>Original Ideas</strong>
+            <span>Explore similar ideas and record an informal first-posted timestamp.</span>
+          </span>
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
     </section>
 
     <footer class="personal-footer">

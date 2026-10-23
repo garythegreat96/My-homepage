@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2">
+  <meta name="description" content="Explore ideas, find possible connections, and record when you shared an idea here.">
+  <title>Original Ideas</title>
+  <link rel="stylesheet" href="ideas.css">
+</head>
+<body class="ideas-page">
+  <main class="ideas-shell">
+    <header class="ideas-top">
+      <a class="ideas-brand" href="/original-ideas.html"><span class="brand-symbol">✳</span>Original Ideas</a>
+      <a class="home-link" href="https://garyxiao.org/">Gary’s website <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <section class="ideas-hero">
+      <p class="eyebrow">An idea starts somewhere</p>
+      <h1>What are you<br><em>thinking about?</em></h1>
+      <p class="hero-copy">Describe an idea. Look for nearby thoughts, then make a timestamped note of what you shared here.</p>
+    </section>
+
+    <section class="idea-panel" aria-labelledby="idea-label">
+      <form id="idea-form">
+        <label id="idea-label" for="idea-input">Your idea</label>
+        <textarea id="idea-input" maxlength="500" rows="4" placeholder="A reusable lunch container that tells you when food is getting warm..." required></textarea>
+        <div class="form-bottom">
+          <span id="character-count">0 / 500</span>
+          <button class="primary-button" type="submit">Look for similar ideas <span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
+    </section>
+
+    <section id="results" class="results-section" hidden aria-live="polite"></section>
+
+    <section class="profile-panel">
+      <div>
+        <p class="eyebrow">Your local profile</p>
+        <h2 id="profile-heading">Add a name to record your idea</h2>
+        <p id="profile-note">Prototype profile only. This name and your entries stay in this browser.</p>
+      </div>
+      <form id="profile-form" class="profile-form">
+        <label class="visually-hidden" for="profile-name">Display name</label>
+        <input id="profile-name" name="name" maxlength="32" placeholder="Display name" autocomplete="nickname" required>
+        <button class="secondary-button" type="submit">Save name</button>
+      </form>
+    </section>
+
+    <section class="entries-section">
+      <div class="entries-heading">
+        <div>
+          <p class="eyebrow">Your notebook</p>
+          <h2>Ideas recorded here</h2>
+        </div>
+        <span id="entry-count" class="entry-count">0</span>
+      </div>
+      <div id="entries-list" class="entries-list"></div>
+      <p id="empty-state" class="empty-state">Your recorded ideas will appear here.</p>
+    </section>
+
+    <footer class="ideas-footer">
+      <p><strong>Informal credit only.</strong> A timestamp shows when an idea was entered on this site. It does not prove who thought of it first or grant legal ownership.</p>
+      <p class="prototype-note">Prototype: similarity checks use a small example collection in this browser. There is no public web search, AI service, or real account system yet.</p>
+    </footer>
+  </main>
+  <script src="ideas.js"></script>
+</body>
+</html>

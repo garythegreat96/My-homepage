@@ -21,7 +21,8 @@ function saveState() {
   localStorage.setItem(stateKey, JSON.stringify(state));
 }
 function words(value) {
-  return new Set(value.toLowerCase().match(/[a-z0-9]+/g).filter(word => word.length > 2 && !stopWords.has(word)));
+  const tokens = value.toLowerCase().match(/[a-z0-9]+/g) || [];
+  return new Set(tokens.filter(word => word.length > 2 && !stopWords.has(word)));
 }
 function overlap(a, b) {
   const left = words(a);

@@ -1,10 +1,3 @@
-const exampleIdeas = [
-  { title: "A plant pot that reminds you when the soil is dry", tags: "plant water sensor soil moisture reminder" },
-  { title: "A shared calendar that turns homework into small daily steps", tags: "school homework assignments calendar study planner tasks" },
-  { title: "A reusable cup that tracks how much water you drink", tags: "water bottle hydration cup drink tracking" },
-  { title: "A quiet study timer that schedules short screen breaks", tags: "study timer focus break screen school" },
-  { title: "A neighborhood shelf for sharing extra garden produce", tags: "community neighborhood garden food sharing vegetables" }
-];
 const stateKey = "original-ideas-prototype-v1";
 let state = JSON.parse(localStorage.getItem(stateKey) || "{}");
 state.entries ||= [];
@@ -15,25 +8,16 @@ const input = document.getElementById("idea-input");
 const results = document.getElementById("results");
 const entriesList = document.getElementById("entries-list");
 const emptyState = document.getElementById("empty-state");
-const stopWords = new Set(["a","an","and","are","as","at","be","by","for","from","how","i","in","into","is","it","my","of","on","or","our","that","the","their","this","to","use","with","you"]);
+const submitButton = form.querySelector('button[type="submit"]');
 
 function saveState() {
   localStorage.setItem(stateKey, JSON.stringify(state));
 }
-function words(value) {
-  const tokens = value.toLowerCase().match(/[a-z0-9]+/g) || [];
-  return new Set(tokens.filter(word => word.length > 2 && !stopWords.has(word)));
-}
-function overlap(a, b) {
-  const left = words(a);
-  const right = words(b);
-  if (!left.size || !right.size) return 0;
-  let common = 0;
-  left.forEach(word => { if (right.has(word)) common += 1; });
-  return common / (left.size + right.size - common);
-}
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, char => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;" })[char]);
+}
+function normalizedText(value) {
+  return String(value).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
 }
 function renderEntries() {
   entriesList.innerHTML = state.entries.slice().reverse().map(entry =>
@@ -46,32 +30,86 @@ function renderEntries() {
     document.getElementById("profile-name").value = state.name;
   }
 }
-function webSearchPanel(idea) {
-  const query = encodeURIComponent(idea);
-  const similarQuery = encodeURIComponent(idea + " similar ideas");
-  return '<section class="web-search-panel"><div><strong>Search the public web</strong><span>Choose a search engine. Your idea text will be sent to that provider.</span></div><nav class="web-search-links" aria-label="Search the web">' +
-    '<a href="https://www.google.com/search?q=' + query + '" target="_blank" rel="noopener noreferrer">Google ↗</a>' +
-    '<a href="https://www.bing.com/search?q=' + similarQuery + '" target="_blank" rel="noopener noreferrer">Bing ↗</a>' +
-    '<a href="https://duckduckgo.com/?q=' + query + '" target="_blank" rel="noopener noreferrer">DuckDuckGo ↗</a>' +
-    '</nav></section>';
-}
-function showMatches(idea) {
-  const matches = exampleIdeas.map(item => ({
-    title: item.title,
-    score: Math.max(overlap(idea, item.title), overlap(idea, item.tags))
-  })).filter(item => item.score >= 0.12).sort((a,b) => b.score - a.score).slice(0,3);
-  let body = "";
-  if (matches.length) {
-    body = '<div class="match-list">' + matches.map(item =>
-      '<article class="match-card"><strong>' + escapeHtml(item.title) + '</strong><span>Word overlap with the prototype example collection: ' + Math.round(item.score * 100) + '%</span></article>'
-    ).join("") + '</div>';
-  } else {
-    body = '<div class="no-match">No close wording match in the small example collection. This does not mean nobody has thought of the idea.</div>';
-  }
-  results.innerHTML = '<p class="eyebrow">Possible connections</p><h2>Here’s what the prototype found</h2><p class="results-intro">These wording matches come from a few examples. Use a web-search link below to check public pages; search engines may miss similar ideas.</p>' + webSearchPanel(idea) + body +
-    '<div class="record-row"><p>Save an informal first-posted timestamp to this browser.</p><button class="record-button" id="record-idea" type="button">Record this idea</button></div>';
-  results.hidden = false;
+function addRecordButton() {
+  const row = document.createElement("div");
+  row.className = "record-row";
+  row.innerHTML = '<p>Save an informal first-posted timestamp to this browser.</p><button class="record-button" id="record-idea" type="button">Record this idea</button>';
+  results.append(row);
   document.getElementById("record-idea").addEventListener("click", recordIdea);
+}
+function showLoading(idea) {
+  results.innerHTML = '<p class="eyebrow">Public web search</p><h2>Looking for related pages</h2><p class="results-intro">Searching the public web for: <strong>' + escapeHtml(idea) + '</strong></p><div class="search-status" role="status">Searching now…</div>';
+  results.hidden = false;
+}
+function showError(message) {
+  results.innerHTML = '<p class="eyebrow">Public web search</p><h2>Search unavailable</h2><div class="no-match">' + escapeHtml(message) + '</div>';
+  results.hidden = false;
+}
+function renderSearchResults(idea, items) {
+  const phrase = normalizedText(idea);
+  const exactWording = items.some(item => {
+    const pageText = normalizedText(item.title + " " + item.description);
+    return phrase.length > 0 && pageText.includes(phrase);
+  });
+  let summary;
+  if (!items.length) {
+    summary = "No similar public pages surfaced in these results. That does not mean the idea is new; private, unindexed, or differently worded posts may not appear.";
+  } else if (exactWording) {
+    summary = "At least one result repeats the full idea wording in its title or snippet. That is an exact wording match, but it does not prove the underlying idea is identical or show who thought of it first.";
+  } else {
+    summary = "The search returned " + items.length + " public page" + (items.length === 1 ? "" : "s") + " that may discuss something similar. None of the returned titles or snippets repeats the full idea wording exactly.";
+  }
+
+  results.innerHTML =
+    '<p class="eyebrow">Public web search</p><h2>What turned up online</h2>' +
+    '<div class="search-summary">' + escapeHtml(summary) + '</div>' +
+    '<p class="results-intro">These are possible connections from public search results, not proof of originality or ownership. Search may miss private, unindexed, or differently worded posts.</p>';
+
+  if (items.length) {
+    const list = document.createElement("div");
+    list.className = "search-result-list";
+    items.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "search-result-card";
+      const link = document.createElement("a");
+      link.href = item.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = item.title;
+      const description = document.createElement("p");
+      description.textContent = item.description || new URL(item.url).hostname;
+      card.append(link, description);
+      list.append(card);
+    });
+    results.append(list);
+  } else {
+    const empty = document.createElement("div");
+    empty.className = "no-match";
+    empty.textContent = "No results came back for this search.";
+    results.append(empty);
+  }
+  addRecordButton();
+  results.hidden = false;
+}
+async function searchIdea(idea) {
+  showLoading(idea);
+  submitButton.disabled = true;
+  submitButton.textContent = "Searching…";
+  try {
+    const response = await fetch("/api/search", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ idea })
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Live search is temporarily unavailable. Please try again later.");
+    renderSearchResults(idea, Array.isArray(data.items) ? data.items.slice(0, 5) : []);
+  } catch (error) {
+    showError(error.message || "Live search is temporarily unavailable. Please try again later.");
+  } finally {
+    submitButton.disabled = false;
+    submitButton.innerHTML = 'Look for similar ideas <span aria-hidden="true">↗</span>';
+  }
 }
 function recordIdea() {
   if (!state.name) {
@@ -93,12 +131,11 @@ function recordIdea() {
 input.addEventListener("input", () => {
   document.getElementById("character-count").textContent = input.value.length + " / 500";
 });
-form.addEventListener("submit", event => {
+form.addEventListener("submit", async event => {
   event.preventDefault();
   currentIdea = input.value.trim();
-  if (!currentIdea) return;
-  showMatches(currentIdea);
-  results.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  if (!currentIdea || currentIdea.length > 500) return;
+  await searchIdea(currentIdea);
 });
 document.getElementById("profile-form").addEventListener("submit", event => {
   event.preventDefault();

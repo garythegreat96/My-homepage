@@ -1,0 +1,9 @@
+worker.js
+wrangler.jsonc
+package.json
+package-lock.json
+README.md
+.assetsignore
+.github
+.git
+node_modules

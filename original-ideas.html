@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f6f2">
-  <meta name="description" content="Explore ideas, find possible connections, and record when you shared an idea here.">
+  <meta name="description" content="Search public pages for ideas, review possible connections, and record when you shared an idea here.">
   <title>Original Ideas</title>
-  <link rel="stylesheet" href="ideas.css">
+  <link rel="stylesheet" href="ideas.css?v=3">
 </head>
 <body class="ideas-page">
   <main class="ideas-shell">
@@ -18,13 +18,14 @@
     <section class="ideas-hero">
       <p class="eyebrow">An idea starts somewhere</p>
       <h1>What are you<br><em>thinking about?</em></h1>
-      <p class="hero-copy">Describe an idea. Look for nearby thoughts, then make a timestamped note of what you shared here.</p>
+      <p class="hero-copy">Describe an idea. Search public pages for possible matches, then make a timestamped note of what you shared here.</p>
     </section>
 
     <section class="idea-panel" aria-labelledby="idea-label">
       <form id="idea-form">
         <label id="idea-label" for="idea-input">Your idea</label>
         <textarea id="idea-input" maxlength="500" rows="4" placeholder="A reusable lunch container that tells you when food is getting warm..." required></textarea>
+        <p class="search-privacy-note">When you search, your idea text is sent to Cloudflare’s Ceramic search provider. Results can miss similar ideas and do not prove originality.</p>
         <div class="form-bottom">
           <span id="character-count">0 / 500</span>
           <button class="primary-button" type="submit">Look for similar ideas <span aria-hidden="true">↗</span></button>
@@ -61,9 +62,9 @@
 
     <footer class="ideas-footer">
       <p><strong>Informal credit only.</strong> A timestamp shows when an idea was entered on this site. It does not prove who thought of it first or grant legal ownership.</p>
-      <p class="prototype-note">Prototype: choose a web-search link to send your idea text to that search provider. The site does not collect the results or provide an AI summary yet.</p>
+      <p class="prototype-note">Search checks public pages returned by the search provider. It may miss private, unindexed, recent, or differently worded work. Names and notebook entries remain local to this browser; there is no real account system.</p>
     </footer>
   </main>
-  <script src="ideas.js"></script>
+  <script src="ideas.js?v=3"></script>
 </body>
 </html>
